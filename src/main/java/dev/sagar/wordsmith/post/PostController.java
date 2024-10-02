@@ -2,7 +2,7 @@ package dev.sagar.wordsmith.post;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -21,76 +22,77 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping
-    public ResponseEntity<PagedResponse<PostResponseDto>> getAllPosts(@RequestParam(defaultValue = "1") Integer page,
-                                                                      @RequestParam(defaultValue = "10") Integer size,
-                                                                      @RequestParam(defaultValue = "id") String sortBy,
-                                                                      @RequestParam(defaultValue = "desc") String direction) {
-        PagedResponse<PostResponseDto> posts = postService.getAllPosts(page, size, sortBy, direction);
-        return ResponseEntity.status(200).body(posts);
+    @ResponseStatus(HttpStatus.OK)
+    public PagedResponse<PostResponseDto> getAllPosts(@RequestParam(defaultValue = "1") final Integer page,
+                                                      @RequestParam(defaultValue = "10") final Integer size,
+                                                      @RequestParam(defaultValue = "id") final String sortBy,
+                                                      @RequestParam(defaultValue = "desc") final String direction) {
+        return postService.getAllPosts(page, size, sortBy, direction);
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<PostResponseDto> getPostById(@PathVariable Long postId) {
-        PostResponseDto post = postService.getPostById(postId);
-        return ResponseEntity.status(200).body(post);
+    @ResponseStatus(HttpStatus.OK)
+    public PostResponseDto getPostById(@PathVariable final Long postId) {
+        return postService.getPostById(postId);
     }
 
     @PostMapping
-    public ResponseEntity<PostResponseDto> createPost(@Valid @RequestBody PostRequestDto postRequestDto) {
-        PostResponseDto post = postService.createPost(postRequestDto);
-        return ResponseEntity.status(201).body(post);
+    @ResponseStatus(HttpStatus.CREATED)
+    public PostResponseDto createPost(@Valid @RequestBody final PostRequestDto postRequestDto) {
+        return postService.createPost(postRequestDto);
     }
 
     @PutMapping("/{postId}")
-    public ResponseEntity<PostResponseDto> updatePost(@PathVariable Long postId, @Valid @RequestBody PostRequestDto postRequestDto) {
-        PostResponseDto post = postService.updatePost(postId, postRequestDto);
-        return ResponseEntity.status(200).body(post);
+    @ResponseStatus(HttpStatus.OK)
+    public PostResponseDto updatePost(@PathVariable final Long postId,
+                                      @Valid @RequestBody final PostRequestDto postRequestDto) {
+        return postService.updatePost(postId, postRequestDto);
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<Void> deletePost(@PathVariable Long postId) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePost(@PathVariable final Long postId) {
         postService.deletePost(postId);
-        return ResponseEntity.status(204).build();
     }
 
     @GetMapping("/category/{categoryId}")
-    public ResponseEntity<PagedResponse<PostResponseDto>> getPostsByCategoryId(@PathVariable Integer categoryId,
-                                                                               @RequestParam(defaultValue = "1") Integer page,
-                                                                               @RequestParam(defaultValue = "10") Integer size,
-                                                                               @RequestParam(defaultValue = "id") String sortBy,
-                                                                               @RequestParam(defaultValue = "desc") String direction) {
-        PagedResponse<PostResponseDto> posts = postService.getPostsByCategoryId(categoryId, page, size, sortBy, direction);
-        return ResponseEntity.status(200).body(posts);
+    @ResponseStatus(HttpStatus.OK)
+    public PagedResponse<PostResponseDto> getPostsByCategoryId(@PathVariable final Integer categoryId,
+                                                               @RequestParam(defaultValue = "1") final Integer page,
+                                                               @RequestParam(defaultValue = "10") final Integer size,
+                                                               @RequestParam(defaultValue = "id") final String sortBy,
+                                                               @RequestParam(defaultValue = "desc") final String direction) {
+        return postService.getPostsByCategoryId(categoryId, page, size, sortBy, direction);
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<PagedResponse<PostResponseDto>> getPostsByUserId(@PathVariable Long userId,
-                                                                           @RequestParam(defaultValue = "1") Integer page,
-                                                                           @RequestParam(defaultValue = "10") Integer size,
-                                                                           @RequestParam(defaultValue = "id") String sortBy,
-                                                                           @RequestParam(defaultValue = "desc") String direction) {
-        PagedResponse<PostResponseDto> posts = postService.getPostsByUserId(userId, page, size, sortBy, direction);
-        return ResponseEntity.status(200).body(posts);
+    @ResponseStatus(HttpStatus.OK)
+    public PagedResponse<PostResponseDto> getPostsByUserId(@PathVariable final Long userId,
+                                                           @RequestParam(defaultValue = "1") final Integer page,
+                                                           @RequestParam(defaultValue = "10") final Integer size,
+                                                           @RequestParam(defaultValue = "id") final String sortBy,
+                                                           @RequestParam(defaultValue = "desc") final String direction) {
+        return postService.getPostsByUserId(userId, page, size, sortBy, direction);
     }
 
     @GetMapping("/user/{userId}/category/{categoryId}")
-    public ResponseEntity<PagedResponse<PostResponseDto>> getPostsByUserIdAndCategoryId(@PathVariable Long userId,
-                                                                                        @PathVariable Integer categoryId,
-                                                                                        @RequestParam(defaultValue = "1") Integer page,
-                                                                                        @RequestParam(defaultValue = "10") Integer size,
-                                                                                        @RequestParam(defaultValue = "id") String sortBy,
-                                                                                        @RequestParam(defaultValue = "desc") String direction) {
-        PagedResponse<PostResponseDto> posts = postService.getPostsByUserIdAndCategoryId(userId, categoryId, page, size, sortBy, direction);
-        return ResponseEntity.status(200).body(posts);
+    @ResponseStatus(HttpStatus.OK)
+    public PagedResponse<PostResponseDto> getPostsByUserIdAndCategoryId(@PathVariable final Long userId,
+                                                                        @PathVariable final Integer categoryId,
+                                                                        @RequestParam(defaultValue = "1") final Integer page,
+                                                                        @RequestParam(defaultValue = "10") final Integer size,
+                                                                        @RequestParam(defaultValue = "id") final String sortBy,
+                                                                        @RequestParam(defaultValue = "desc") final String direction) {
+        return postService.getPostsByUserIdAndCategoryId(userId, categoryId, page, size, sortBy, direction);
     }
 
     @GetMapping("/search/{searchTerm}")
-    public ResponseEntity<PagedResponse<PostResponseDto>> getPostsBySearchTerm(@PathVariable String searchTerm,
-                                                                               @RequestParam(defaultValue = "1") Integer page,
-                                                                               @RequestParam(defaultValue = "10") Integer size,
-                                                                               @RequestParam(defaultValue = "id") String sortBy,
-                                                                               @RequestParam(defaultValue = "desc") String direction) {
-        PagedResponse<PostResponseDto> posts = postService.getByTitleContaining(searchTerm, page, size, sortBy, direction);
-        return ResponseEntity.status(200).body(posts);
+    @ResponseStatus(HttpStatus.OK)
+    public PagedResponse<PostResponseDto> getPostsBySearchTerm(@PathVariable final String searchTerm,
+                                                               @RequestParam(defaultValue = "1") final Integer page,
+                                                               @RequestParam(defaultValue = "10") final Integer size,
+                                                               @RequestParam(defaultValue = "id") final String sortBy,
+                                                               @RequestParam(defaultValue = "desc") final String direction) {
+        return postService.getByTitleContaining(searchTerm, page, size, sortBy, direction);
     }
 }
