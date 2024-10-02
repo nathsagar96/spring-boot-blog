@@ -1,5 +1,6 @@
 package dev.sagar.wordsmith.user;
 
+import dev.sagar.wordsmith.exception.AlreadyExistException;
 import dev.sagar.wordsmith.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,8 @@ public class UserService {
         return userMapper.toDto(userEntity);
     }
 
-    UserResponseDto createUser(UserRequestDto userRequestDto) {
+    public UserResponseDto createUser(UserRequestDto userRequestDto) {
+        validateUserUniqueness(userRequestDto);
         UserEntity userEntity = userMapper.toEntity(userRequestDto);
         UserEntity savedUserEntity = userRepository.save(userEntity);
         return userMapper.toDto(savedUserEntity);
@@ -55,6 +57,24 @@ public class UserService {
 
     void deleteUser(Long userId) {
         userRepository.deleteById(userId);
+    }
+
+    private void validateUserUniqueness(UserRequestDto userRequestDto) {
+        String username = userRequestDto.username();
+        String email = userRequestDto.email();
+        String phoneNumber = userRequestDto.phoneNumber();
+
+        if (userRepository.findByUsername(username).isPresent()) {
+            throw new AlreadyExistException("User already exists with username: " + username);
+        }
+
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw new AlreadyExistException("User already exists with email: " + email);
+        }
+
+        if (userRepository.findByPhoneNumber(phoneNumber).isPresent()) {
+            throw new AlreadyExistException("User already exists with phone number: " + phoneNumber);
+        }
     }
 }
 
