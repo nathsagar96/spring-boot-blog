@@ -1,3 +1,18 @@
 spring:
   application:
     name: wordsmith
+  datasource:
+    url: jdbc:postgresql://localhost:5432/wordsmith
+    username: postgres
+    password: secret
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  security:
+
+
+server:
+  port: 8080
+  shutdown: graceful
