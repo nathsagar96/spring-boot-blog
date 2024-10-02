@@ -17,7 +17,7 @@ public class UserService {
         return userRepository
                 .findAll()
                 .stream()
-                .map(userMapper::mapToUserResponseDto)
+                .map(userMapper::toDto)
                 .toList();
     }
 
@@ -25,13 +25,13 @@ public class UserService {
         UserEntity userEntity = userRepository
                 .findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
-        return userMapper.mapToUserResponseDto(userEntity);
+        return userMapper.toDto(userEntity);
     }
 
     UserResponseDto createUser(UserRequestDto userRequestDto) {
-        UserEntity userEntity = userMapper.mapToUserEntity(userRequestDto);
+        UserEntity userEntity = userMapper.toEntity(userRequestDto);
         UserEntity savedUserEntity = userRepository.save(userEntity);
-        return userMapper.mapToUserResponseDto(savedUserEntity);
+        return userMapper.toDto(savedUserEntity);
     }
 
     UserResponseDto updateUser(Long userId, UserRequestDto userRequestDto) {
@@ -50,7 +50,7 @@ public class UserService {
         userEntity.setCountry(userRequestDto.country());
 
         UserEntity savedUserEntity = userRepository.save(userEntity);
-        return userMapper.mapToUserResponseDto(savedUserEntity);
+        return userMapper.toDto(savedUserEntity);
     }
 
     void deleteUser(Long userId) {

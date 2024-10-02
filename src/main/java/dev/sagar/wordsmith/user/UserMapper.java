@@ -10,7 +10,7 @@ public class UserMapper {
 
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public UserResponseDto mapToUserResponseDto(UserEntity userEntity) {
+    public UserResponseDto toDto(UserEntity userEntity) {
         return new UserResponseDto(
                 userEntity.getId(),
                 userEntity.getUsername(),
@@ -26,7 +26,7 @@ public class UserMapper {
                 userEntity.getCountry());
     }
 
-    public UserEntity mapToUserEntity(UserRequestDto userRequestDto) {
+    public UserEntity toEntity(UserRequestDto userRequestDto) {
         return new UserEntity(
                 userRequestDto.username(),
                 userRequestDto.email(),
