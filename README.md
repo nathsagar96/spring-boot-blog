@@ -1,1 +1,1 @@
-# spring-boot-blog
+# wordsmith
