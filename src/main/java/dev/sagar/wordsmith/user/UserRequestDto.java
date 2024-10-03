@@ -14,6 +14,7 @@ public record UserRequestDto(
         String username,
 
         @NotBlank(message = "Password cannot be blank")
+        @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", message = "Password must contain at least one uppercase letter, one lowercase letter, and one digit")
         @Size(min = 8, max = 100, message = "Password must be between 8 and 100 characters")
         String password,
 
