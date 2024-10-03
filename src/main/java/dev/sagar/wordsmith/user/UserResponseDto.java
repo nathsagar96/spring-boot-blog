@@ -17,6 +17,7 @@ public record UserResponseDto(
         String city,
         String state,
         String zipCode,
-        String country
-) {
+        String country,
+        String role,
+        String bio) {
 }

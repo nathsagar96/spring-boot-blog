@@ -23,7 +23,9 @@ public class UserMapper {
                 userEntity.getCity(),
                 userEntity.getState(),
                 userEntity.getZipCode(),
-                userEntity.getCountry());
+                userEntity.getCountry(),
+                userEntity.getRole(),
+                userEntity.getBio());
     }
 
     public UserEntity toEntity(UserRequestDto userRequestDto) {
@@ -39,6 +41,9 @@ public class UserMapper {
                 userRequestDto.city(),
                 userRequestDto.state(),
                 userRequestDto.zipCode(),
-                userRequestDto.country());
+                userRequestDto.country(),
+                userRequestDto.role(),
+                userRequestDto.bio()
+        );
     }
 }

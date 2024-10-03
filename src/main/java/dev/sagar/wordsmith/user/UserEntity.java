@@ -50,6 +50,11 @@ public class UserEntity {
     private String zipCode;
     private String country;
 
+    @Column(nullable = false)
+    private String role;
+
+    private String bio;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
@@ -57,7 +62,7 @@ public class UserEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public UserEntity(String username, String email, String password, String firstName, String lastName, String phoneNumber, LocalDate birthDate, String address, String city, String state, String zipCode, String country) {
+    public UserEntity(String username, String email, String password, String firstName, String lastName, String phoneNumber, LocalDate birthDate, String address, String city, String state, String zipCode, String country, String role, String bio) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -70,5 +75,7 @@ public class UserEntity {
         this.state = state;
         this.zipCode = zipCode;
         this.country = country;
+        this.role = role;
+        this.bio = bio;
     }
 }

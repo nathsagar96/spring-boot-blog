@@ -3,6 +3,7 @@ package dev.sagar.wordsmith.user;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
@@ -35,6 +36,13 @@ public record UserRequestDto(
         String city,
         String state,
         String zipCode,
-        String country
+        String country,
+
+        @NotBlank(message = "Role cannot be blank")
+        @Pattern(regexp = "(?i)USER|ADMIN", message = "Role must be USER or ADMIN")
+        String role,
+
+        @Size(max = 500, message = "Bio cannot be more than 500 characters")
+        String bio
 ) {
 }
