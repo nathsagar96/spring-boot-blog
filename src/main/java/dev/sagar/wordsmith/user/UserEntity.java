@@ -35,14 +35,9 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
     private String firstName;
-
     private String lastName;
-
-    @Column(unique = true, nullable = false)
     private String phoneNumber;
-
     private LocalDate birthDate;
     private String address;
     private String city;

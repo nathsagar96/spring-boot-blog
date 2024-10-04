@@ -71,10 +71,6 @@ public class UserService {
         if (userRepository.findByEmail(email).isPresent()) {
             throw new AlreadyExistException("User already exists with email: " + email);
         }
-
-        if (userRepository.findByPhoneNumber(phoneNumber).isPresent()) {
-            throw new AlreadyExistException("User already exists with phone number: " + phoneNumber);
-        }
     }
 }
 

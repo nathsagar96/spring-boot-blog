@@ -1,14 +1,14 @@
 package dev.sagar.wordsmith.user;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class UserMapper {
 
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public UserResponseDto toDto(UserEntity userEntity) {
         return new UserResponseDto(

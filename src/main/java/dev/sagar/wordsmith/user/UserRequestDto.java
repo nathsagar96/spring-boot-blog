@@ -22,12 +22,8 @@ public record UserRequestDto(
         @Email
         String email,
 
-        @NotBlank(message = "First name cannot be blank")
-        @Size(min = 3, max = 50, message = "First name must be between 3 and 50 characters")
         String firstName,
         String lastName,
-
-        @NotBlank(message = "Phone number cannot be blank")
         String phoneNumber,
 
         @Past(message = "Birth date must be in the past")
