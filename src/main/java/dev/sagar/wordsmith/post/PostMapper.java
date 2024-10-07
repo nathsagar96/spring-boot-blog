@@ -10,6 +10,7 @@ public class PostMapper {
                 postEntity.getTitle(),
                 postEntity.getContent(),
                 postEntity.getCreatedAt(),
+                postEntity.getUpdatedAt(),
                 postEntity.getUserId(),
                 postEntity.getCategoryId());
     }
