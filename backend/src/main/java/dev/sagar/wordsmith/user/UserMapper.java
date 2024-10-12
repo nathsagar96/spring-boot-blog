@@ -4,12 +4,27 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+/**
+ * A component that handles the mapping between UserEntity and UserRequestDto/UserResponseDto.
+ *
+ * <p>This class is responsible for converting {@link UserEntity} objects (representing users in the database)
+ * to {@link UserResponseDto} objects (representing users in the API response) and vice versa.</p>
+ *
+ * @version 1.0
+ */
 @Component
 @RequiredArgsConstructor
 public class UserMapper {
 
     private final PasswordEncoder passwordEncoder;
 
+
+    /**
+     * Converts a UserEntity to a UserResponseDto.
+     *
+     * @param userEntity the UserEntity to be converted.
+     * @return a {@link UserResponseDto} representing the user information.
+     */
     public UserResponseDto toDto(UserEntity userEntity) {
         return new UserResponseDto(
                 userEntity.getId(),
@@ -28,6 +43,12 @@ public class UserMapper {
                 userEntity.getBio());
     }
 
+    /**
+     * Converts a UserRequestDto to a UserEntity.
+     *
+     * @param userRequestDto the UserRequestDto containing user information to be converted.
+     * @return a {@link UserEntity} representing the user in the database.
+     */
     public UserEntity toEntity(UserRequestDto userRequestDto) {
         return UserEntity.builder()
                 .username(userRequestDto.username())

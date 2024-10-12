@@ -6,6 +6,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service class for managing comment-related operations.
+ *
+ * <p>This class provides methods to handle business logic for creating, retrieving,
+ * updating, and deleting comments. It interacts with the data persistence layer
+ * through {@link CommentRepository} and uses {@link CommentMapper} to map
+ * between entities and DTOs.</p>
+ *
+ * <p>Annotated with {@link Service} to denote it as a service component in the Spring context,
+ * allowing for dependency injection.</p>
+ *
+ * @version 1.0
+ */
 @Service
 @RequiredArgsConstructor
 public class CommentService {
@@ -13,6 +26,11 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final CommentMapper commentMapper;
 
+    /**
+     * Retrieves a list of all comments.
+     *
+     * @return a list of {@link CommentResponseDto} representing all comments.
+     */
     public List<CommentResponseDto> getAllComments() {
         return commentRepository
                 .findAll()
@@ -21,6 +39,13 @@ public class CommentService {
                 .toList();
     }
 
+    /**
+     * Retrieves a specific comment by its ID.
+     *
+     * @param commentId the ID of the comment to retrieve.
+     * @return a {@link CommentResponseDto} representing the comment with the given ID.
+     * @throws ResourceNotFoundException if no comment is found with the provided ID.
+     */
     public CommentResponseDto getCommentById(Long commentId) {
         CommentEntity commentEntity = commentRepository
                 .findById(commentId)
@@ -28,12 +53,26 @@ public class CommentService {
         return commentMapper.toDto(commentEntity);
     }
 
+    /**
+     * Creates a new comment based on the provided data.
+     *
+     * @param commentRequestDto the DTO containing the new comment data.
+     * @return a {@link CommentResponseDto} representing the created comment.
+     */
     public CommentResponseDto createComment(CommentRequestDto commentRequestDto) {
         CommentEntity commentEntity = commentMapper.toEntity(commentRequestDto);
         CommentEntity savedCommentEntity = commentRepository.save(commentEntity);
         return commentMapper.toDto(savedCommentEntity);
     }
 
+    /**
+     * Updates an existing comment with the provided data.
+     *
+     * @param commentId         the ID of the comment to update.
+     * @param commentRequestDto the DTO containing the updated comment data.
+     * @return a {@link CommentResponseDto} representing the updated comment.
+     * @throws ResourceNotFoundException if no comment is found with the provided ID.
+     */
     public CommentResponseDto updateComment(Long commentId, CommentRequestDto commentRequestDto) {
         CommentEntity commentEntity = commentRepository
                 .findById(commentId)
@@ -44,10 +83,21 @@ public class CommentService {
         return commentMapper.toDto(updatedCommentEntity);
     }
 
+    /**
+     * Deletes a specific comment by its ID.
+     *
+     * @param commentId the ID of the comment to delete.
+     */
     public void deleteComment(Long commentId) {
         commentRepository.deleteById(commentId);
     }
 
+    /**
+     * Retrieves comments by the ID of the associated post.
+     *
+     * @param postId the ID of the post to retrieve comments for.
+     * @return a list of {@link CommentResponseDto} representing the comments associated with the given post.
+     */
     public List<CommentResponseDto> getCommentsByPostId(Long postId) {
         return commentRepository
                 .findByPostId(postId)
@@ -56,6 +106,12 @@ public class CommentService {
                 .toList();
     }
 
+    /**
+     * Retrieves comments by the ID of the user who made the comments.
+     *
+     * @param userId the ID of the user to retrieve comments for.
+     * @return a list of {@link CommentResponseDto} representing the comments made by the specified user.
+     */
     public List<CommentResponseDto> getCommentsByUserId(Long userId) {
         return commentRepository
                 .findByUserId(userId)
@@ -63,5 +119,4 @@ public class CommentService {
                 .map(commentMapper::toDto)
                 .toList();
     }
-
 }

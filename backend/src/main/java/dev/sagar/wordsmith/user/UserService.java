@@ -6,6 +6,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service class for managing user-related operations.
+ *
+ * <p>This class provides methods for retrieving, updating, and deleting user information
+ * by interacting with the UserRepository and mapping user entities to DTOs using UserMapper.</p>
+ *
+ * @version 1.0
+ */
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -13,6 +21,11 @@ public class UserService {
     private final UserMapper userMapper;
     private final UserRepository userRepository;
 
+    /**
+     * Retrieves all users from the database.
+     *
+     * @return a list of {@link UserResponseDto} containing the information of all users.
+     */
     List<UserResponseDto> getAllUsers() {
         return userRepository
                 .findAll()
@@ -21,6 +34,13 @@ public class UserService {
                 .toList();
     }
 
+    /**
+     * Retrieves a user by their ID.
+     *
+     * @param userId the ID of the user to be retrieved.
+     * @return a {@link UserResponseDto} containing the user's information.
+     * @throws ResourceNotFoundException if a user with the specified ID does not exist.
+     */
     UserResponseDto getUserById(Long userId) {
         UserEntity userEntity = userRepository
                 .findById(userId)
@@ -28,6 +48,14 @@ public class UserService {
         return userMapper.toDto(userEntity);
     }
 
+    /**
+     * Updates the information of an existing user.
+     *
+     * @param userId         the ID of the user to be updated.
+     * @param userRequestDto the DTO containing the updated user information.
+     * @return a {@link UserResponseDto} containing the updated user's information.
+     * @throws ResourceNotFoundException if a user with the specified ID does not exist.
+     */
     UserResponseDto updateUser(Long userId, UserRequestDto userRequestDto) {
         UserEntity userEntity = userRepository
                 .findById(userId)
@@ -47,6 +75,11 @@ public class UserService {
         return userMapper.toDto(savedUserEntity);
     }
 
+    /**
+     * Deletes a user by their ID.
+     *
+     * @param userId the ID of the user to be deleted.
+     */
     void deleteUser(Long userId) {
         userRepository.deleteById(userId);
     }
