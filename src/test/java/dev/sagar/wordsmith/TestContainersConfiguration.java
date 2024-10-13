@@ -1,5 +1,9 @@
 package dev.sagar.wordsmith;
 
+import com.github.dockerjava.api.model.ExposedPort;
+import com.github.dockerjava.api.model.HostConfig;
+import com.github.dockerjava.api.model.PortBinding;
+import com.github.dockerjava.api.model.Ports;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +23,11 @@ class TestContainersConfiguration {
     @Bean
     @ServiceConnection(name = "redis")
     GenericContainer<?> redisContainer() {
-        return new GenericContainer<>(DockerImageName.parse("redis:7-alpine"));
+        return new GenericContainer<>(DockerImageName.parse("redis:7-alpine"))
+                .withExposedPorts(6379)
+                .withCreateContainerCmdModifier(cmd -> cmd.withHostConfig(
+                        new HostConfig()
+                                .withPortBindings(new PortBinding(Ports.Binding.bindPort(6379), new ExposedPort(6379)))
+                ));
     }
-
 }
