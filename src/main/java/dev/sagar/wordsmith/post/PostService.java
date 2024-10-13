@@ -2,6 +2,9 @@ package dev.sagar.wordsmith.post;
 
 import dev.sagar.wordsmith.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -87,6 +90,7 @@ public class PostService {
      * @return the PostResponseDto representing the found post.
      * @throws ResourceNotFoundException if the post is not found.
      */
+    @Cacheable(value = "post", key = "#postId")
     public PostResponseDto getPostById(Long postId) {
         PostEntity postEntity = postRepository
                 .findById(postId)
@@ -114,6 +118,7 @@ public class PostService {
      * @return the PostResponseDto representing the updated post.
      * @throws ResourceNotFoundException if the post is not found.
      */
+    @CachePut(value = "post", key = "#postId")
     public PostResponseDto updatePost(Long postId, PostRequestDto postRequestDto) {
         PostEntity postEntity = postRepository
                 .findById(postId)
@@ -132,6 +137,7 @@ public class PostService {
      *
      * @param postId the ID of the post to delete.
      */
+    @CacheEvict(value = "post", key = "#postId")
     public void deletePost(Long postId) {
         postRepository.deleteById(postId);
     }

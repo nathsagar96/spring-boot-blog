@@ -2,6 +2,9 @@ package dev.sagar.wordsmith.comment;
 
 import dev.sagar.wordsmith.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +34,7 @@ public class CommentService {
      *
      * @return a list of {@link CommentResponseDto} representing all comments.
      */
+    @Cacheable(value = "comments")
     public List<CommentResponseDto> getAllComments() {
         return commentRepository
                 .findAll()
@@ -46,6 +50,7 @@ public class CommentService {
      * @return a {@link CommentResponseDto} representing the comment with the given ID.
      * @throws ResourceNotFoundException if no comment is found with the provided ID.
      */
+    @Cacheable(value = "comments", key = "#commentId")
     public CommentResponseDto getCommentById(Long commentId) {
         CommentEntity commentEntity = commentRepository
                 .findById(commentId)
@@ -73,6 +78,7 @@ public class CommentService {
      * @return a {@link CommentResponseDto} representing the updated comment.
      * @throws ResourceNotFoundException if no comment is found with the provided ID.
      */
+    @CachePut(value = "comments", key = "#commentId")
     public CommentResponseDto updateComment(Long commentId, CommentRequestDto commentRequestDto) {
         CommentEntity commentEntity = commentRepository
                 .findById(commentId)
@@ -88,6 +94,7 @@ public class CommentService {
      *
      * @param commentId the ID of the comment to delete.
      */
+    @CacheEvict(value = "comments", key = "#commentId")
     public void deleteComment(Long commentId) {
         commentRepository.deleteById(commentId);
     }
@@ -98,6 +105,7 @@ public class CommentService {
      * @param postId the ID of the post to retrieve comments for.
      * @return a list of {@link CommentResponseDto} representing the comments associated with the given post.
      */
+    @Cacheable(value = "comments", key = "#postId")
     public List<CommentResponseDto> getCommentsByPostId(Long postId) {
         return commentRepository
                 .findByPostId(postId)
@@ -112,6 +120,7 @@ public class CommentService {
      * @param userId the ID of the user to retrieve comments for.
      * @return a list of {@link CommentResponseDto} representing the comments made by the specified user.
      */
+    @Cacheable(value = "comments", key = "#userId")
     public List<CommentResponseDto> getCommentsByUserId(Long userId) {
         return commentRepository
                 .findByUserId(userId)

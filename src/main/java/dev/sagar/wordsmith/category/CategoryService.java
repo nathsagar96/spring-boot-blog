@@ -2,6 +2,9 @@ package dev.sagar.wordsmith.category;
 
 import dev.sagar.wordsmith.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +34,7 @@ public class CategoryService {
      *
      * @return a list of {@link CategoryResponseDto} representing all categories.
      */
+    @Cacheable(value = "categories")
     public List<CategoryResponseDto> getAllCategories() {
         return categoryRepository
                 .findAll()
@@ -46,6 +50,7 @@ public class CategoryService {
      * @return a {@link CategoryResponseDto} representing the category with the given ID.
      * @throws ResourceNotFoundException if no category is found with the provided ID.
      */
+    @Cacheable(value = "categories", key = "#categoryId")
     public CategoryResponseDto getCategoryById(Integer categoryId) {
         CategoryEntity categoryEntity = categoryRepository
                 .findById(categoryId)
@@ -74,6 +79,7 @@ public class CategoryService {
      * @return a {@link CategoryResponseDto} representing the updated category.
      * @throws ResourceNotFoundException if no category is found with the provided ID.
      */
+    @CachePut(value = "categories", key = "#categoryId")
     public CategoryResponseDto updateCategory(Integer categoryId, CategoryRequestDto categoryRequestDto) {
         CategoryEntity categoryEntity = categoryRepository
                 .findById(categoryId)
@@ -91,6 +97,7 @@ public class CategoryService {
      *
      * @param categoryId the ID of the category to delete.
      */
+    @CacheEvict(value = "categories", key = "#categoryId")
     public void deleteCategory(Integer categoryId) {
         categoryRepository.deleteById(categoryId);
     }
