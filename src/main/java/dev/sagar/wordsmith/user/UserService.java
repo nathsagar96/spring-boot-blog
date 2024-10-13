@@ -2,6 +2,9 @@ package dev.sagar.wordsmith.user;
 
 import dev.sagar.wordsmith.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +29,7 @@ public class UserService {
      *
      * @return a list of {@link UserResponseDto} containing the information of all users.
      */
+    @Cacheable(value = "users")
     List<UserResponseDto> getAllUsers() {
         return userRepository
                 .findAll()
@@ -41,6 +45,7 @@ public class UserService {
      * @return a {@link UserResponseDto} containing the user's information.
      * @throws ResourceNotFoundException if a user with the specified ID does not exist.
      */
+    @Cacheable(value = "users", key = "#userId")
     UserResponseDto getUserById(Long userId) {
         UserEntity userEntity = userRepository
                 .findById(userId)
@@ -56,6 +61,7 @@ public class UserService {
      * @return a {@link UserResponseDto} containing the updated user's information.
      * @throws ResourceNotFoundException if a user with the specified ID does not exist.
      */
+    @CachePut(value = "users", key = "#userId")
     UserResponseDto updateUser(Long userId, UserRequestDto userRequestDto) {
         UserEntity userEntity = userRepository
                 .findById(userId)
@@ -80,6 +86,7 @@ public class UserService {
      *
      * @param userId the ID of the user to be deleted.
      */
+    @CacheEvict(value = "users", key = "#userId")
     void deleteUser(Long userId) {
         userRepository.deleteById(userId);
     }

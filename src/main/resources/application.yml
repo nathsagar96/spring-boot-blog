@@ -1,6 +1,14 @@
 spring:
   application:
     name: wordsmith
+  cache:
+    type: redis
+    redis:
+      time-to-live: ${REDIS_TTL:900}
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/blog}
     username: ${DB_USER:postgres}
