@@ -1,6 +1,6 @@
-# WordSmith
+# Word Smith
 
-WordSmith is a powerful backend service for managing posts, comments, and categories for a blog site. This RESTful
+Word Smith is a powerful backend service for managing posts, comments, and categories for a blog site. This RESTful
 API provides comprehensive functionality for user management, authentication, and content creation.
 
 ## Table of Contents
@@ -28,7 +28,7 @@ API provides comprehensive functionality for user management, authentication, an
 
 ## Technologies
 
-WordSmith is built with the following technologies:
+Word Smith is built with the following technologies:
 
 - Java 21
 - Spring Boot 3
@@ -63,8 +63,8 @@ To obtain a token, use the `/api/auth/authenticate` endpoint with your username 
 2. Clone the repository:
 
    ```bash
-   git clone https://github.com/nathsagar96/wordsmith.git
-   cd wordsmith
+   git clone https://github.com/nathsagar96/word-smith-backend.git
+   cd word-smith-backend
    ```
 
 3. Configure your jwt secret and expiration time in the `application.yml` file.

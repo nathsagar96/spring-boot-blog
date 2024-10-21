@@ -11,9 +11,9 @@
     </parent>
 
     <groupId>dev.sagar</groupId>
-    <artifactId>wordsmith</artifactId>
+    <artifactId>word-smith</artifactId>
     <version>1.0.0</version>
-    <name>wordsmith</name>
+    <name>word-smith</name>
     <description>Spring Boot Blog Application</description>
 
     <properties>

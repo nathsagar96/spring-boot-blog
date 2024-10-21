@@ -1,6 +1,6 @@
 spring:
   application:
-    name: wordsmith
+    name: word-smith
   cache:
     type: redis
     redis:
@@ -28,4 +28,4 @@ jwt:
 
 api:
   version: v1.0
-  description: WordSmith API to manage posts, comments and categories for blog site.
+  description: Word Smith API to manage posts, comments and categories for blog site.
