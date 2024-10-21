@@ -26,39 +26,38 @@ import java.time.LocalDateTime;
 @Table(name = "users")
 public class UserEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String username;
+  @Column(unique = true, nullable = false)
+  private String username;
 
-    @Column(unique = true, nullable = false)
-    private String email;
+  @Column(unique = true, nullable = false)
+  private String email;
 
-    @Column(nullable = false)
-    private String password;
+  @Column(nullable = false)
+  private String password;
 
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
-    private LocalDate birthDate;
-    private String address;
-    private String city;
-    private String state;
-    private String zipCode;
-    private String country;
+  private String firstName;
+  private String lastName;
+  private String phoneNumber;
+  private LocalDate birthDate;
+  private String address;
+  private String city;
+  private String state;
+  private String zipCode;
+  private String country;
 
-    @Column(nullable = false)
-    @Builder.Default
-    private String role = "USER";
+  @Column(nullable = false)
+  @Builder.Default
+  private String role = "USER";
 
-    private String bio;
+  private String bio;
 
-    @CreationTimestamp
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
+  @CreationTimestamp
+  @Column(updatable = false)
+  private LocalDateTime createdAt;
 
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
+  @UpdateTimestamp private LocalDateTime updatedAt;
 }

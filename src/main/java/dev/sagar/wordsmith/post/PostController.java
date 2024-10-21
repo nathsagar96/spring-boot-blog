@@ -1,5 +1,10 @@
 package dev.sagar.wordsmith.post;
 
+import static dev.sagar.wordsmith.post.PageConstants.PAGE_NUMBER;
+import static dev.sagar.wordsmith.post.PageConstants.PAGE_SIZE;
+import static dev.sagar.wordsmith.post.PageConstants.SORT_BY;
+import static dev.sagar.wordsmith.post.PageConstants.SORT_DIRECTION;
+
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -15,11 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import static dev.sagar.wordsmith.post.PageConstants.PAGE_NUMBER;
-import static dev.sagar.wordsmith.post.PageConstants.PAGE_SIZE;
-import static dev.sagar.wordsmith.post.PageConstants.SORT_BY;
-import static dev.sagar.wordsmith.post.PageConstants.SORT_DIRECTION;
 
 /**
  * Controller class for managing post-related operations.

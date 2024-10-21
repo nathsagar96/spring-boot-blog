@@ -20,10 +20,10 @@ import lombok.Setter;
 @Table(name = "categories")
 public class CategoryEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    private String title;
-    private String description;
+  private String title;
+  private String description;
 }

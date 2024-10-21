@@ -14,20 +14,22 @@ import org.testcontainers.utility.DockerImageName;
 @TestConfiguration(proxyBeanMethods = false)
 class TestContainersConfiguration {
 
-    @Bean
-    @ServiceConnection
-    PostgreSQLContainer<?> postgresContainer() {
-        return new PostgreSQLContainer<>(DockerImageName.parse("postgres:17-alpine"));
-    }
+  @Bean
+  @ServiceConnection
+  PostgreSQLContainer<?> postgresContainer() {
+    return new PostgreSQLContainer<>(DockerImageName.parse("postgres:17-alpine"));
+  }
 
-    @Bean
-    @ServiceConnection(name = "redis")
-    GenericContainer<?> redisContainer() {
-        return new GenericContainer<>(DockerImageName.parse("redis:7-alpine"))
-                .withExposedPorts(6379)
-                .withCreateContainerCmdModifier(cmd -> cmd.withHostConfig(
-                        new HostConfig()
-                                .withPortBindings(new PortBinding(Ports.Binding.bindPort(6379), new ExposedPort(6379)))
-                ));
-    }
+  @Bean
+  @ServiceConnection(name = "redis")
+  GenericContainer<?> redisContainer() {
+    return new GenericContainer<>(DockerImageName.parse("redis:7-alpine"))
+        .withExposedPorts(6379)
+        .withCreateContainerCmdModifier(
+            cmd ->
+                cmd.withHostConfig(
+                    new HostConfig()
+                        .withPortBindings(
+                            new PortBinding(Ports.Binding.bindPort(6379), new ExposedPort(6379)))));
+  }
 }

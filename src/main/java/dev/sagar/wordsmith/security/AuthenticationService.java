@@ -3,6 +3,7 @@ package dev.sagar.wordsmith.security;
 import dev.sagar.wordsmith.exception.AlreadyExistException;
 import dev.sagar.wordsmith.user.UserEntity;
 import dev.sagar.wordsmith.user.UserRepository;
+import java.util.HashMap;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -10,8 +11,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
 
 /**
  * Service class for handling authentication and user registration.

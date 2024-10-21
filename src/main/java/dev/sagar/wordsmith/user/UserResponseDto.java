@@ -6,18 +6,17 @@ import java.time.LocalDate;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record UserResponseDto(
-        Long id,
-        String username,
-        String email,
-        String firstName,
-        String lastName,
-        String phoneNumber,
-        LocalDate birthDate,
-        String address,
-        String city,
-        String state,
-        String zipCode,
-        String country,
-        String role,
-        String bio) {
-}
+    Long id,
+    String username,
+    String email,
+    String firstName,
+    String lastName,
+    String phoneNumber,
+    LocalDate birthDate,
+    String address,
+    String city,
+    String state,
+    String zipCode,
+    String country,
+    String role,
+    String bio) {}

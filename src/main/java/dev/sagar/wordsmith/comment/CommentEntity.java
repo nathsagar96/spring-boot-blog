@@ -23,14 +23,13 @@ import java.time.LocalDateTime;
 @Table(name = "comments")
 public class CommentEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+  @CreationTimestamp private LocalDateTime createdAt;
 
-    private String content;
-    private Long userId;
-    private Long postId;
+  private String content;
+  private Long userId;
+  private Long postId;
 }
