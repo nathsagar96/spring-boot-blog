@@ -63,8 +63,8 @@ To obtain a token, use the `/api/auth/authenticate` endpoint with your username 
 2. Clone the repository:
 
    ```bash
-   git clone https://github.com/nathsagar96/word-smith-backend.git
-   cd word-smith-backend
+   git clone https://github.com/nathsagar96/word-smith.git
+   cd word-smith
    ```
 
 3. Configure your jwt secret and expiration time in the `application.yml` file.
@@ -168,4 +168,4 @@ We welcome contributions to the WordSmith API! Please follow these steps to cont
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
